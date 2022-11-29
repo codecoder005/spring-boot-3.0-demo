@@ -1,6 +1,8 @@
 package com.orgofarmsgroup.controller;
 
 import com.orgofarmsgroup.entity.UserEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,6 +17,7 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/users")
 public class UserController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     private static List<UserEntity> users = new ArrayList<>();
     static {
         users.add(
@@ -25,6 +28,7 @@ public class UserController {
     @GetMapping
     public ResponseEntity<?> getUsers() {
         try{
+            LOGGER.info("got a request");
             return ResponseEntity.status(HttpStatus.OK).body(users);
         }catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).build();
